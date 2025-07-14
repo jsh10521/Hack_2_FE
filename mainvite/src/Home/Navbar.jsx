@@ -1,10 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css'
 
 export default function Navbar() {
-  return (
-    <header className="navbar-header">
-      <div className="navbar-container">
+    const navigate = useNavigate();
+
+    return (
+        <header className="navbar-header">
+        <div className="navbar-container">
         
         <div className="navbar-logo">🎬 MovieReview</div>
 
@@ -17,8 +20,10 @@ export default function Navbar() {
         </div>
 
         <div className="navbar-auth-buttons">
-          <button className="login-button">Login</button>
-          <button className="signup-button">Sign Up</button>
+            <button className="login-button" onClick={() => navigate('/login')}>Login</button>
+            <button className="signup-button" onClick={() => navigate('/signup')}>
+                Sign Up
+            </button>
         </div>
       </div>
     </header>

@@ -6,12 +6,17 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import HomePage from "../src/Homepage"
+import Signup from "../src/routes/signup"
 
 const router = createBrowserRouter([
 
   {
     path: "/",
     element: <HomePage />,
+  },
+  {
+    path: "/Signup",
+    element: <Signup />
   },
 ]);
 
