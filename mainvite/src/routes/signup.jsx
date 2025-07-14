@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "./signup.css";
+
 import { signup } from '../api/signup_api';
+
 import { useNavigate } from "react-router-dom";
 
 
@@ -34,6 +36,8 @@ export default function SignupSection() {
   }
 
   return (
+
+    <div className="page-wrapper">
     <div className="signup-container">
         <div className="signup-title">
             회원가입
@@ -68,10 +72,10 @@ export default function SignupSection() {
         />
         </div>
 
-        <button className="signup-button" onClick={handleSignup}>
+        <button className="signup-buttons" onClick={handleSignup}>
             가입하기
         </button>
     </div>
+    </div>
   );
-
 }
