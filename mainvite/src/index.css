@@ -20,7 +20,8 @@ a {
     color: inherit;
 }
 
-button {
+.button {
     font-family: inherit;
     cursor: pointer;
     border: none;
+}
