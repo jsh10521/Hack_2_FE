@@ -8,7 +8,7 @@ export default function PopularList() {
     <div style={{ display: "flex", gap: "20px", padding: "20px" }}>
       <ClickableBox
         imageSrc={nice}
-        to="/(영화별 연결 링크)"
+        to="/detail_list"
         title="영화 이름"
       />
       <ClickableBox
