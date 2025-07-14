@@ -1,14 +1,77 @@
-.navbar-header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: blue;
-}
-.navbar-logo{
-    display: flex;
-    justify-content: flex-start;
-    font-size: 50px;
+.navbar-header {
+    background-color: #1c2b6c;
     color: white;
-    
+    padding: 16px 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .navbar-container {
+        flex-direction: row;
+    }
+}
+
+.navbar-logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.navbar-search-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+}
+
+.navbar-auth-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.login-button {
+    background-color: white;
+    color: #1c2b6c;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.signup-button {
+    background-color: #ffd600;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.login-button:hover {
+    background-color: #f0f0f0;
+}
+
+.signup-button:hover {
+    background-color: #ffcf00;
 }
