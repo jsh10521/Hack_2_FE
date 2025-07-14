@@ -8,7 +8,7 @@ export default function DetailList() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`https://thehotpotato.store/movies/${id}/`)
+    fetch(`/movies/${id}/`)
       .then((res) => {
         if (!res.ok) throw new Error("영화 정보를 불러오지 못했습니다.");
         return res.json();
@@ -18,11 +18,12 @@ export default function DetailList() {
   }, [id]);
 
   if (error) return <div className="error">에러: {error}</div>;
+  if (!movie) return <div className="loading">로딩 중...</div>;
 
   return (
     <div className="detail-container">
       <img
-        src={movie.image_url}
+        src={movie.poster_url}
         alt={movie.title_kor}
         className="detail-poster"
       />
@@ -30,9 +31,33 @@ export default function DetailList() {
         <h1 className="detail-title">
           {movie.title_kor} <span className="eng">({movie.title_eng})</span>
         </h1>
-        <p className="detail-description">{movie.description}</p>
-        <p><strong>이름:</strong> {movie.name}</p>
-        <p><strong>캐릭터:</strong> {movie.character}</p>
+        <p><strong>장르:</strong> {movie.genre}</p>
+        <p><strong>상영 시간:</strong> {movie.showtime}분</p>
+        <p><strong>개봉일:</strong> {movie.release_date}</p>
+        <p><strong>줄거리:</strong> {movie.plot}</p>
+        <p><strong>평점:</strong> {movie.rating}</p>
+        <div className="director">
+          <h3>감독</h3>
+          <img
+            src={movie.director_image_url}
+            alt={movie.director_name}
+            className="director-image"
+          />
+          <p>{movie.director_name}</p>
+        </div>
+        <div className="actors">
+          <h3>출연진</h3>
+          {movie.actors.map((actor) => (
+            <div key={actor.name} className="actor">
+              <img
+                src={actor.image_url}
+                alt={actor.name}
+                className="actor-image"
+              />
+              <p>{actor.name} ({actor.character})</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
