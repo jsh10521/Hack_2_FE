@@ -5,16 +5,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./index.css";
-import PopularList from "./routes/popular_list"
-import PopularMov from "./Home/PopularMovies"
+import HomePage from "../src/Homepage"
 
 const router = createBrowserRouter([
 
   {
     path: "/",
-    element: <PopularList />,
+    element: <HomePage />,
   },
-
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

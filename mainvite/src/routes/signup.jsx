@@ -66,18 +66,6 @@ export default function SignupSection() {
             placeholder="닉네임" 
             onChange={handleChange} 
         />
-        <input 
-            className="signup-input"
-            name="university" 
-            placeholder="대학교" 
-            onChange={handleChange} 
-        />
-        <input 
-            className="signup-input"
-            name="location" 
-            placeholder="지역" 
-            onChange={handleChange} 
-        />
         </div>
 
         <button className="signup-button" onClick={handleSignup}>
