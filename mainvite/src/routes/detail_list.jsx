@@ -1,38 +1,39 @@
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import "./detail_list.css";
 
 export default function DetailList() {
-  const { id } = useParams(); // URL의 /movies/:id 에서 id 추출
+  const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch(`https://thehotpotato.store/movies/${id}/`)
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("영화 정보를 불러오지 못했습니다.");
-        }
+        if (!res.ok) throw new Error("영화 정보를 불러오지 못했습니다.");
         return res.json();
       })
       .then((data) => setMovie(data))
       .catch((err) => setError(err.message));
   }, [id]);
 
-  if (error) return <div style={{ color: "red" }}>에러: {error}</div>;
-  if (!movie) return <div>로딩 중입니다...</div>;
+  if (error) return <div className="error">에러: {error}</div>;
 
   return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <h1>{movie.title}</h1>
+    <div className="detail-container">
       <img
-        src={movie.poster_image}
-        alt={movie.title}
-        style={{ width: "300px", borderRadius: "10px" }}
+        src={movie.image_url}
+        alt={movie.title_kor}
+        className="detail-poster"
       />
-      <p style={{ marginTop: "20px" }}>{movie.description}</p>
-      <p><strong>감독:</strong> {movie.director}</p>
-      <p><strong>장르:</strong> {movie.genre}</p>
-      <p><strong>개봉일:</strong> {movie.release_date}</p>
+      <div className="detail-info">
+        <h1 className="detail-title">
+          {movie.title_kor} <span className="eng">({movie.title_eng})</span>
+        </h1>
+        <p className="detail-description">{movie.description}</p>
+        <p><strong>이름:</strong> {movie.name}</p>
+        <p><strong>캐릭터:</strong> {movie.character}</p>
+      </div>
     </div>
   );
 }

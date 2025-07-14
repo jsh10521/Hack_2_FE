@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./logintotal.css";
-import { login } from '../api/login_api';
+//import { login } from '../api/login_api';
 
 
 export default function LoginSection() {

@@ -7,16 +7,20 @@ import {
 import "./index.css";
 import HomePage from "../src/Homepage"
 import Signup from "../src/routes/signup"
+import DetailList from "./routes/detail_list"
 
 const router = createBrowserRouter([
-
   {
     path: "/",
     element: <HomePage />,
   },
   {
-    path: "/Signup",
+    path: "/signup",
     element: <Signup />
+  },
+  {
+    path: "/detail_list/:id",
+    element: <DetailList />,
   },
 ]);
 
