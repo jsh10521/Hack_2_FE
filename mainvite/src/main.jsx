@@ -8,11 +8,16 @@ import "./index.css";
 import HomePage from "../src/Homepage"
 import Signup from "../src/routes/signup"
 import DetailList from "./routes/detail_list"
+import Login from "./routes/login"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+  },
+  {
+    path: "/login",
+    element: <Login />
   },
   {
     path: "/signup",
