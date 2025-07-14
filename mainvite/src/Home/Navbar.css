@@ -1,4 +1,14 @@
+.navbar-header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: blue;
+}
 .navbar-logo{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    font-size: 50px;
+    color: white;
+    
 }
