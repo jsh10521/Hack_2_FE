@@ -1,0 +1,121 @@
+.detail-page-wrapper {
+    padding: 40px 20px;
+    background-color: #f0f2f5;
+    min-height: calc(100vh - 80px); /* 푸터가 있다면 푸터 높이만큼 빼주세요 */
+}
+
+.detail-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 40px;
+}
+
+.detail-poster {
+    width: 300px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0; /* 창이 줄어들어도 이미지가 찌그러지지 않음 */
+}
+
+.detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-title-kor {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.detail-title-eng {
+    font-size: 1.3rem;
+    color: #777;
+    margin-bottom: 25px;
+    font-style: italic;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.info-section {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #555;
+    width: 80px; /* 라벨 너비 고정 */
+}
+
+/* 줄거리, 배우 정보 섹션 */
+.info-section.plot,
+.info-section.actors {
+    display: block; /* flex 대신 block으로 변경 */
+    margin-top: 20px;
+}
+
+.info-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    border-left: 4px solid #007bff;
+    padding-left: 10px;
+}
+
+.info-section p {
+    line-height: 1.7;
+    color: #444;
+}
+
+/* 별점 스타일 */
+.star-rating {
+    display: flex;
+    align-items: center;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #ccc;
+}
+
+.star.filled {
+    color: #ffc107;
+}
+
+.rating-score {
+    margin-left: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* 영화를 찾지 못했을 때 스타일 */
+.error-container {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.error-container h1 {
+    font-size: 5rem;
+    color: #ccc;
+}
+
+.go-home-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}

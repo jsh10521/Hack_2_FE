@@ -1,14 +1,13 @@
-import PopularList from "./routes/popular_list"
-import Navbar from "./Home/Navbar"
-import { Outlet } from "react-router-dom";
+import PopularList from './routes/popular_list';
+import Navbar from './Home/Navbar';
 
-export default function RootLayout() {
-  return (
-    <>
-      <Navbar />
-      <main>
-        <PopularList />
-      </main>
-    </>
-  );
+export default function HomePage() {
+    return (
+        <div className="homepage-container">
+            <Navbar />
+            <main className="homepage-main">
+                <PopularList />
+            </main>
+        </div>
+    );
 }
