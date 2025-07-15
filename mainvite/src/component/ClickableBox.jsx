@@ -1,26 +1,15 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./ClickableBox.css"
-
+import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import './ClickableBox.css';
 
 export default function ClickableBox({ imageSrc, to, title }) {
-  const navigate = useNavigate();
-
-  const isExternal = to?.startsWith("http");
-
-  const handleClick = () => {
-    if (!to) return;
-    if (isExternal) {
-      window.open(to, "_blank"); // 외부 링크 새 탭 열기
-    } else {
-      navigate(to); // 내부 경로는 React Router로 이동
-    }
-  };
-
-  return (
-    <div className="pop_box" onClick={handleClick}>
-      <img src={imageSrc} alt={title} className="pop_image" />
-      <div className="pop_title">{title}</div>
-    </div>
-  );
+    return (
+        // The entire box is now a Link component that navigates to the 'to' prop URL
+        <Link to={to} className="pop_box">
+            <img src={imageSrc} alt={title} className="pop_image" />
+            <div className="pop_title_wrapper">
+                <span className="pop_title">{title}</span>
+            </div>
+        </Link>
+    );
 }

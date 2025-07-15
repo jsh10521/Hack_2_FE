@@ -1,38 +1,34 @@
-import React, { useEffect, useState } from "react";
-import ClickableBox from "../component/ClickableBox";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import allMoviesData from '../movies.json';
+import ClickableBox from '../component/ClickableBox';
+import './popular_list.css';
 
 export default function PopularList() {
-  const [movies, setMovies] = useState([]);
+    const [popularMovies, setPopularMovies] = useState([]);
 
-  useEffect(() => {
-    // 원하는 영화 ID 목록
-    const movieIds = [1, 2, 3];
+    useEffect(() => {
+        // 6개를 가져오던 것을 3개만 가져오도록 수정
+        const topMovies = allMoviesData.slice(0, 3);
+        setPopularMovies(topMovies);
+    }, []);
 
-    Promise.all(
-      movieIds.map((id) =>
-        fetch(`/movies/${id}/`)
-          .then((res) => {
-            if (!res.ok) throw new Error("영화 정보를 불러오지 못했습니다.");
-            return res.json();
-          })
-          .then((data) => ({ ...data, id }))
-      )
-    )
-      .then((results) => setMovies(results))
-      .catch((err) => console.error(err));
-  }, []);
-
-  if (movies.length === 0) return <div>로딩 중...</div>;
-
-  return (
-    <div style={{ display: "flex", gap: "20px", padding: "20px" }}>
-      {movies.map((movie) => (
-        <ClickableBox
-          key={movie.id}
-          imageSrc={movie.poster_url}
-          to={`/detail_list/${movie.id}`}
-        />
-      ))}
-    </div>
-  );
+    return (
+        <section className="popular-list-section">
+            <h2 className="popular-list-title">인기 영화</h2>
+            <div className="popular-movies-container">
+                {popularMovies.map((movie) => (
+                    <ClickableBox
+                        key={movie.id}
+                        imageSrc={movie.poster_url}
+                        to={`/detail_list/${movie.id}`}
+                        title={movie.title_kor}
+                    />
+                ))}
+            </div>
+            <Link to="/all_list" className="see-all-button">
+                See all &rarr;
+            </Link>
+        </section>
+    );
 }
