@@ -146,7 +146,8 @@ export default function DetailList() {
                     <div className="actors">
                         <h3>출연진</h3>
                         {movie.actors?.length > 0 ? (
-                            movie.actors.map((actor, index) => (
+                            <div className="actor-list">
+                            {movie.actors.map((actor, index) => (
                                 <div key={index} className="actor">
                                     <img
                                         src={actor.photo_url || actor.image_url}
@@ -156,7 +157,8 @@ export default function DetailList() {
                                     />
                                     <p>{actor.name}{actor.character ? ` (${actor.character})` : ''}</p>
                                 </div>
-                            ))
+                            ))}
+                            </div>
                         ) : (
                             <p>배우 정보 없음</p>
                         )}
