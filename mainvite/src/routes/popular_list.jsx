@@ -7,7 +7,7 @@ export default function PopularList() {
     const [popularMovies, setPopularMovies] = useState([]);
 
     useEffect(() => {
-        fetch('/movies')
+        fetch('/movies/')
             .then(res => res.json())
             .then(data => {
                 const topMovies = data.slice(0, 3);

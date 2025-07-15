@@ -1,122 +1,96 @@
 .navbar-header {
     background-color: #1c2b6c;
-    color: white;
-    padding: 16px 0;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    color: white;
 }
 
 .navbar-container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
-
+    padding: 0 24px;
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    justify-content: space-between;
     align-items: center;
-}
-
-@media (min-width: 768px) {
-    .navbar-container {
-        flex-direction: row;
-    }
+    justify-content: space-between;
+    flex-wrap: nowrap;
 }
 
 .navbar-logo {
-    font-size: 50px;
-    font-weight: bold;
+    font-size: 26px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .navbar-search-wrapper {
-    flex: 1;
     display: flex;
-    justify-content: center;
-}
-
-.navbar-search-input {
-    width: 100%;
-    max-width: 400px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: none;
-    font-size: 14px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 10px;
 }
 
 .navbar-auth-buttons {
     display: flex;
-    gap: 12px;
-    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-.login-button {
-    background-color: white;
-    color: #1c2b6c;
-    padding: 8px 16px;
-    border-radius: 6px;
+.navbar-search-button,
+.login-button,
+.signup-button,
+.logout-button {
+    height: 42px;
+    min-width: 130px;
+    padding: 0 24px;
+    font-size: 15px;
     font-weight: 600;
-    font-size: 13px;
-}
-
-.signup-button {
-    background-color: #ffd600;
-    color: black;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 13px;
-}
-
-.login-button:hover {
-    background-color: #f0f0f0;
-}
-
-.signup-button:hover {
-    background-color: #ffcf00;
-}
-
-.navbar-search-wrapper {
-    flex-grow: 1;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
     display: flex;
+    align-items: center;
     justify-content: center;
-    padding: 0 50px;
-}
-
-.navbar-search-input {
-    width: 100%;
-    max-width: 500px;
-    padding: 8px 15px;
-    border: 1px solid #ccc;
-    border-radius: 20px 0 0 20px;
-    border-right: none;
-    font-size: 1rem;
-}
-
-.navbar-search-input:focus {
-    outline: none;
-    border-color: #007bff;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
 }
 
 .navbar-search-button {
-  background-color: #5a9eff;         /* 시네마 느낌 나는 파란색 */
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #5a9eff;
+    color: white;
 }
-
 .navbar-search-button:hover {
-  background-color: #417de0;
-  transform: translateY(-2px);
+    background-color: #3f87e0;
 }
 
-.navbar-search-button:active {
-  transform: scale(0.98);
-  background-color: #3a72cc;
+.login-button {
+    background-color: #007bff;
+    color: white;
+}
+.login-button:hover {
+    background-color: #005ec2;
+}
+
+.signup-button {
+    background-color: #8ecaff;
+    color: #1c2b6c;
+}
+.signup-button:hover {
+    background-color: #6db8ff;
+}
+
+.logout-button {
+    background-color: #f06262;
+    color: white;
+}
+.logout-button:hover {
+    background-color: #d94444;
+}
+
+.navbar-username {
+    font-size: 15px;
+    color: white;
 }

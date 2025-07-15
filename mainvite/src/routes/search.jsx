@@ -8,7 +8,6 @@ export default function SearchPage() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  // 영화 전체 목록 가져오기
   useEffect(() => {
     fetch("/movies/")
       .then((res) => res.json())
@@ -22,7 +21,6 @@ export default function SearchPage() {
       });
   }, []);
 
-  // 검색 필터
   const filteredMovies = movies.filter((movie) => {
     const term = searchTerm.toLowerCase();
     return (
