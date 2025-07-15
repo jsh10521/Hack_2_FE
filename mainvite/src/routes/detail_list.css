@@ -1,3 +1,4 @@
+/* --- 영화 정보 레이아웃 --- */
 .detail-page-wrapper {
     padding: 40px 20px;
     background-color: #f0f2f5;
@@ -208,4 +209,41 @@
     color: white;
     border-radius: 5px;
     text-decoration: none;
+}
+
+.actors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.actor {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.actor-image {
+  width: 100px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 8px;
+}
+
+.actor-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.actor-character {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
 }
