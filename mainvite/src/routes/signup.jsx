@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import "./signup.css";
-
-import { signup } from '../api/signup_api';
-
+//import { signup } from '../api/signup_api';
 import { useNavigate } from "react-router-dom";
 
 

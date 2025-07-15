@@ -36,7 +36,7 @@
   font-size: 18px;
   padding: 0 20px;
   border-radius: 10px;
-  border: 1px solid #90CAF9;
+  border: 1px solid #1c2b6c;
   transition: border-color 0.2s;
 }
 
@@ -52,7 +52,7 @@
   height: 55px;
   border: none;
   border-radius: 30px;
-  background-color: #64B5F6;
+  background-color: #1c2b6c;
   color: white;
   font-size: 20px;
   font-weight: bold;
@@ -62,4 +62,16 @@
 
 .signup-buttons:hover {
   background-color: #42A5F5;
+}
+
+.signup-button {
+  padding: 12px 20px;
+  width: 110px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
