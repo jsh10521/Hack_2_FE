@@ -64,6 +64,7 @@
 .info-section.actors {
     display: block;
     margin-top: 20px;
+    width: 700px;
 }
 
 .info-section h3 {
@@ -213,6 +214,7 @@
 
 .actors {
   margin-top: 40px;
+  width: 700px;
 }
 
 .actors h3 {
@@ -223,10 +225,9 @@
 
 .actor-list {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
-  overflow-x: auto;
   padding-bottom: 10px;
-  scroll-snap-type: x mandatory;
   width: 100%; /* 가로 정렬이 잘 되도록 너비 설정 */
 }
 
@@ -273,6 +274,7 @@
 .director {
   margin-top: 40px;
   text-align: center;
+  width: 700px;
 }
 
 .director h3 {
