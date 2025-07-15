@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import allMoviesData from '../movies.json';
 import './detail_list.css';
 
 // 별점 컴포넌트
@@ -34,17 +33,33 @@ export default function DetailList() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { user } = useAuth();
-    const movie = allMoviesData.find((m) => m.id === parseInt(id));
 
+    const [movie, setMovie] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [myRating, setMyRating] = useState(0);
+    const [error, setError] = useState(null);
 
+    // 영화 상세 정보 불러오기
     useEffect(() => {
-        const savedComments = JSON.parse(localStorage.getItem(`comments_${id}`)) || [];
-        setComments(savedComments);
+        fetch(`/movies/${id}/`)
+            .then((res) => {
+                if (!res.ok) throw new Error("영화 정보를 불러오지 못했습니다.");
+                return res.json();
+            })
+            .then((data) => setMovie(data))
+            .catch((err) => setError(err.message));
     }, [id]);
 
+    // 댓글 불러오기
+    useEffect(() => {
+        fetch(`/movies/${id}/comments/`)
+            .then((res) => res.json())
+            .then((data) => setComments(data))
+            .catch((err) => console.error("댓글 로딩 실패:", err));
+    }, [id]);
+
+    // 댓글 작성 핸들러
     const handleCommentSubmit = (e) => {
         e.preventDefault();
         if (!user) {
@@ -57,39 +72,42 @@ export default function DetailList() {
             return;
         }
 
-        const commentToAdd = {
-            username: user.username,
-            text: newComment,
-            id: Date.now(),
-        };
+        const token = localStorage.getItem("token");
 
-        const updatedComments = [commentToAdd, ...comments];
-        setComments(updatedComments);
-        localStorage.setItem(`comments_${id}`, JSON.stringify(updatedComments));
-        setNewComment('');
+        fetch(`/movies/${id}/comments/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ content: newComment }),
+        })
+            .then((res) => {
+                if (!res.ok) throw new Error("댓글 작성 실패");
+                return res.json();
+            })
+            .then((newData) => {
+                setComments([...comments, newData]);
+                setNewComment('');
+            })
+            .catch((err) => alert(err.message));
     };
 
-    if (!movie) {
+    if (error) {
         return (
             <div className="detail-page-wrapper">
                 <div className="error-container">
-                    <h1>404</h1>
-                    <p>요청하신 영화 정보를 찾을 수 없습니다.</p>
-                    <Link to="/" className="go-home-button">
-                        홈으로 돌아가기
-                    </Link>
+                    <h1>에러</h1>
+                    <p>{error}</p>
+                    <Link to="/" className="go-home-button">홈으로 돌아가기</Link>
                 </div>
             </div>
         );
     }
 
-    const movieDetails = {
-        overview: movie.overview || '현재 등록된 줄거리 정보가 없습니다.',
-        genres: movie.genres || ['미분류'],
-        release_date: movie.release_date || '정보 없음',
-        vote_average: movie.vote_average || 0,
-        actors: movie.actors || [],
-    };
+    if (!movie) {
+        return <div className="loading">로딩 중...</div>;
+    }
 
     return (
         <div className="detail-page-wrapper">
@@ -98,13 +116,14 @@ export default function DetailList() {
                 <div className="detail-info">
                     <h1 className="detail-title-kor">{movie.title_kor}</h1>
                     <h2 className="detail-title-eng">{movie.title_eng}</h2>
+
                     <div className="info-section">
                         <span className="info-label">개봉일</span>
-                        <span>{movieDetails.release_date}</span>
+                        <span>{movie.release_date || '정보 없음'}</span>
                     </div>
                     <div className="info-section">
                         <span className="info-label">장르</span>
-                        <span>{movieDetails.genres.join(', ')}</span>
+                        <span>{movie.genres?.join(', ') || '정보 없음'}</span>
                     </div>
                     <div className="info-section">
                         <span className="info-label">평점</span>
@@ -113,22 +132,39 @@ export default function DetailList() {
                     </div>
                     <div className="info-section plot">
                         <h3>줄거리</h3>
-                        <p>{movieDetails.overview}</p>
+                        <p>{movie.overview || '줄거리 정보 없음'}</p>
                     </div>
-                    <div className="info-section actors">
-                        <h3>주요 출연진</h3>
-                        <div className="actor-list">
-                            {movieDetails.actors.length > 0 ? (
-                                movieDetails.actors.map((actor, index) => (
-                                    <div key={index} className="actor-profile">
-                                        <img src={actor.photo_url} alt={actor.name} className="actor-photo" />
-                                        <span className="actor-name">{actor.name}</span>
-                                    </div>
-                                ))
-                            ) : (
-                                <p>배우 정보 없음</p>
-                            )}
+
+                    {movie.director_name && (
+                        <div className="director">
+                            <h3>감독</h3>
+                            <img
+                                src={movie.director_image_url}
+                                alt={movie.director_name}
+                                className="director-image"
+                                onError={(e) => (e.currentTarget.src = '/default-profile.png')}
+                            />
+                            <p>{movie.director_name}</p>
                         </div>
+                    )}
+
+                    <div className="actors">
+                        <h3>출연진</h3>
+                        {movie.actors?.length > 0 ? (
+                            movie.actors.map((actor, index) => (
+                                <div key={index} className="actor">
+                                    <img
+                                        src={actor.photo_url || actor.image_url}
+                                        alt={actor.name}
+                                        className="actor-image"
+                                        onError={(e) => (e.currentTarget.src = '/default-profile.png')}
+                                    />
+                                    <p>{actor.name}{actor.character ? ` (${actor.character})` : ''}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>배우 정보 없음</p>
+                        )}
                     </div>
                 </div>
             </div>
@@ -162,8 +198,8 @@ export default function DetailList() {
                     {comments.length > 0 ? (
                         comments.map((comment) => (
                             <div key={comment.id} className="comment-item">
-                                <span className="comment-username">{comment.username}</span>
-                                <p className="comment-text">{comment.text}</p>
+                                <span className="comment-username">{comment.author || comment.username}</span>
+                                <p className="comment-text">{comment.content || comment.text}</p>
                             </div>
                         ))
                     ) : (
