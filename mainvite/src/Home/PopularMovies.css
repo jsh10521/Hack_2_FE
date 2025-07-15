@@ -8,12 +8,12 @@
     min-height: 100vh;
     background: linear-gradient(to bottom, #e7effe, white);
     color: #333;
-    padding-bottom: 60px; /* 하단 여유 공간 */
+    padding-bottom: 60px;
 }
 
 .content {
     max-width: 1100px;
-    margin: 40px auto 0 auto; /* 위 여백 추가 + 중앙 정렬 */
+    margin: 40px auto 0 auto;
     padding: 40px 20px;
 }
 
@@ -30,7 +30,7 @@
 
 .movie-grid {
     display: grid;
-    justify-content: center; /* 좌우 가운데 정렬 */
+    justify-content: center;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 24px;
 }

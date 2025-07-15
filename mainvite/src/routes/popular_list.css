@@ -17,7 +17,6 @@
 
 .popular-movies-container {
     display: grid;
-    /* 한 줄에 6개의 아이템을 표시, 창 크기가 작아지면 자동으로 조절 */
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 25px;
 }

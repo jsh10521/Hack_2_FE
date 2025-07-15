@@ -36,7 +36,7 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 1rem;
-    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    box-sizing: border-box;
 }
 
 .login-button {
