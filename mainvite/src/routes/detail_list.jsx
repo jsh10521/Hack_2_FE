@@ -50,8 +50,11 @@ export default function DetailList() {
     }, [id]);
 
     useEffect(() => {
-        fetch(`/movies/${id}/comments/`) //여기 주소(코맨트)
-            .then((res) => res.json())
+        fetch(`/movies/${id}/comments/`)
+            .then((res) => {
+                if (!res.ok) throw new Error("댓글 정보를 불러오지 못했습니다.");
+                return res.json();
+            })
             .then((data) => setComments(data))
             .catch((err) => console.error("댓글 로딩 실패:", err));
     }, [id]);
@@ -70,13 +73,13 @@ export default function DetailList() {
 
         const token = localStorage.getItem("token");
 
-        fetch(`/movies/${id}/comments/`, { //여기 주소
+        fetch(`/comment/create/${id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({ content: newComment }),
+            body: JSON.stringify({ comment: newComment }),
         })
             .then((res) => {
                 if (!res.ok) throw new Error("댓글 작성 실패");
@@ -147,17 +150,17 @@ export default function DetailList() {
                         <h3>출연진</h3>
                         {movie.actors?.length > 0 ? (
                             <div className="actor-list">
-                            {movie.actors.map((actor, index) => (
-                                <div key={index} className="actor">
-                                    <img
-                                        src={actor.photo_url || actor.image_url}
-                                        alt={actor.name}
-                                        className="actor-image"
-                                        onError={(e) => (e.currentTarget.src = '/default-profile.png')}
-                                    />
-                                    <p>{actor.name}{actor.character ? ` (${actor.character})` : ''}</p>
-                                </div>
-                            ))}
+                                {movie.actors.map((actor, index) => (
+                                    <div key={index} className="actor">
+                                        <img
+                                            src={actor.photo_url || actor.image_url}
+                                            alt={actor.name}
+                                            className="actor-image"
+                                            onError={(e) => (e.currentTarget.src = '/default-profile.png')}
+                                        />
+                                        <p>{actor.name}{actor.character ? ` (${actor.character})` : ''}</p>
+                                    </div>
+                                ))}
                             </div>
                         ) : (
                             <p>배우 정보 없음</p>
@@ -196,7 +199,7 @@ export default function DetailList() {
                         comments.map((comment) => (
                             <div key={comment.id} className="comment-item">
                                 <span className="comment-username">{comment.author || comment.username}</span>
-                                <p className="comment-text">{comment.content || comment.text}</p>
+                                <p className="comment-text">{comment.content || comment.text || comment.comment}</p>
                             </div>
                         ))
                     ) : (

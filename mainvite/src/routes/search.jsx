@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./search.css";
 
 export default function SearchPage() {
   const [movies, setMovies] = useState([]);
@@ -31,7 +32,7 @@ export default function SearchPage() {
   });
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Noto Sans KR, sans-serif" }}>
+    <div className="search-page">
       {isLoading ? (
         <p>로딩 중...</p>
       ) : (
@@ -41,53 +42,30 @@ export default function SearchPage() {
             placeholder="영화 제목 검색"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "10px",
-              fontSize: "16px",
-              marginBottom: "20px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-            }}
+            className="search-input"
           />
 
-          <ul style={{ listStyle: "none", padding: 0 }}>
+          <ul className="movie-list">
             {filteredMovies.length > 0 ? (
               filteredMovies.map((movie) => (
                 <li
                   key={movie.id}
                   onClick={() => navigate(`/detail_list/${movie.id}`)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "16px",
-                    cursor: "pointer",
-                    backgroundColor: "#f7faff",
-                    padding: "12px",
-                    borderRadius: "10px",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-                    transition: "background-color 0.2s",
-                  }}
+                  className="movie-item"
                 >
                   <img
                     src={movie.poster_url}
                     alt={movie.title_eng}
-                    width="60"
-                    style={{
-                      marginRight: "16px",
-                      borderRadius: "8px",
-                      objectFit: "cover",
-                    }}
+                    className="movie-poster"
                   />
-                  <div>
-                    <strong style={{ fontSize: "18px" }}>{movie.title_kor}</strong>
-                    <br />
-                    <em style={{ color: "#666" }}>{movie.title_eng}</em>
+                  <div className="movie-info">
+                    <strong>{movie.title_kor}</strong>
+                    <em>{movie.title_eng}</em>
                   </div>
                 </li>
               ))
             ) : (
-              <li style={{ color: "#999" }}>검색 결과가 없습니다.</li>
+              <li className="no-results">검색 결과가 없습니다.</li>
             )}
           </ul>
         </>
