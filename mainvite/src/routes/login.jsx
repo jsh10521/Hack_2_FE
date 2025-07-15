@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './login.css'; // login.css가 없다면 새로 만들어주세요.
+import './login.css';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -18,8 +18,7 @@ export default function Login() {
             alert('아이디와 비밀번호를 모두 입력해주세요.');
             return;
         }
-        // 실제로는 서버 API 응답을 사용해야 합니다.
-        // 지금은 로그인 성공 시, 사용자 이름(ID)을 저장하는 예시입니다.
+
         const userData = { username: form.username };
         login(userData);
         alert(`${form.username}님, 환영합니다!`);

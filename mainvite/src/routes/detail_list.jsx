@@ -3,7 +3,6 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './detail_list.css';
 
-// 별점 컴포넌트
 const StarRating = ({ rating, onRating, isInteractive = false }) => {
     const [hover, setHover] = useState(0);
     const totalStars = 5;
@@ -40,7 +39,6 @@ export default function DetailList() {
     const [myRating, setMyRating] = useState(0);
     const [error, setError] = useState(null);
 
-    // 영화 상세 정보 불러오기
     useEffect(() => {
         fetch(`/movies/${id}/`)
             .then((res) => {
@@ -51,15 +49,13 @@ export default function DetailList() {
             .catch((err) => setError(err.message));
     }, [id]);
 
-    // 댓글 불러오기
     useEffect(() => {
-        fetch(`/movies/${id}/comments/`)
+        fetch(`/movies/${id}/comments/`) //여기 주소(코맨트)
             .then((res) => res.json())
             .then((data) => setComments(data))
             .catch((err) => console.error("댓글 로딩 실패:", err));
     }, [id]);
 
-    // 댓글 작성 핸들러
     const handleCommentSubmit = (e) => {
         e.preventDefault();
         if (!user) {
@@ -74,7 +70,7 @@ export default function DetailList() {
 
         const token = localStorage.getItem("token");
 
-        fetch(`/movies/${id}/comments/`, {
+        fetch(`/movies/${id}/comments/`, { //여기 주소
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -123,16 +119,15 @@ export default function DetailList() {
                     </div>
                     <div className="info-section">
                         <span className="info-label">장르</span>
-                        <span>{movie.genres?.join(', ') || '정보 없음'}</span>
+                        <span>{movie.genre || '정보 없음'}</span>
                     </div>
                     <div className="info-section">
                         <span className="info-label">평점</span>
-                        <StarRating rating={movie.vote_average || 0} />
-                        <span className="rating-score">{(movie.vote_average || 0).toFixed(1)}</span>
+                        <StarRating rating={movie.rating || 0} />
                     </div>
                     <div className="info-section plot">
                         <h3>줄거리</h3>
-                        <p>{movie.overview || '줄거리 정보 없음'}</p>
+                        <p>{movie.plot || '줄거리 정보 없음'}</p>
                     </div>
 
                     {movie.director_name && (

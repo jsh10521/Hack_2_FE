@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import allMoviesData from '../movies.json';
 import ClickableBox from '../component/ClickableBox';
 import './popular_list.css';
 
@@ -8,9 +7,13 @@ export default function PopularList() {
     const [popularMovies, setPopularMovies] = useState([]);
 
     useEffect(() => {
-        // 6개를 가져오던 것을 3개만 가져오도록 수정
-        const topMovies = allMoviesData.slice(0, 3);
-        setPopularMovies(topMovies);
+        fetch('/movies')
+            .then(res => res.json())
+            .then(data => {
+                const topMovies = data.slice(0, 3);
+                setPopularMovies(topMovies);
+            })
+            .catch(err => console.error('인기 영화 불러오기 실패:', err));
     }, []);
 
     return (

@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
-// 'src' 폴더 바로 아래에 있는 movies.json을 정확히 가리키도록 경로를 수정합니다.
-import allMoviesData from '../movies.json';
+import React, { useState, useEffect } from 'react';
 import ClickableBox from '../component/ClickableBox';
 import Pagination from '../component/Pagination';
 import './all_list.css';
 
 export default function AllList() {
-    const [movies] = useState(allMoviesData);
+    const [movies, setMovies] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 20;
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetch('/movies/') //여기 주소
+            .then(res => {
+                if (!res.ok) throw new Error('영화 목록을 불러오지 못했습니다.');
+                return res.json();
+            })
+            .then(data => {
+                setMovies(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                setError(err.message);
+                setLoading(false);
+            });
+    }, []);
 
     const totalPages = Math.ceil(movies.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -18,6 +34,9 @@ export default function AllList() {
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
+
+    if (loading) return <div>로딩 중...</div>;
+    if (error) return <div>에러: {error}</div>;
 
     return (
         <div className="all-list-container">

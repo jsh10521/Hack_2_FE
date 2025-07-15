@@ -10,13 +10,33 @@ import Signup from './routes/signup';
 import Login from './routes/login';
 import AllList from './routes/all_list';
 import DetailList from './routes/detail_list';
+import SearchPage from './routes/search';
 
 const router = createBrowserRouter([
-    { path: '/', element: <HomePage /> },
-    { path: '/signup', element: <Signup /> },
-    { path: '/login', element: <Login /> },
-    { path: '/all_list', element: <AllList /> },
-    { path: '/detail_list/:id', element: <DetailList /> },
+    { 
+        path: '/', 
+        element: <HomePage /> 
+    },
+    { 
+        path: '/signup', 
+        element: <Signup /> 
+    },
+    { 
+        path: '/login', 
+        element: <Login /> 
+    },
+    { 
+        path: '/all_list', 
+        element: <AllList /> 
+    },
+    { 
+        path: '/detail_list/:id', 
+        element: <DetailList /> 
+    },
+    {
+        path:"/search",
+        element: <SearchPage />,
+    },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
