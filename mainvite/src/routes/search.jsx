@@ -9,23 +9,42 @@ export default function SearchPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/movies/")
-      .then((res) => res.json())
-      .then((data) => {
-        setMovies(data);
+    const fetchAllPages = async () => {
+      setIsLoading(true);
+      let allMovies = [];
+      let nextUrl = "/movies/search";
+
+      try {
+        while (nextUrl) {
+          const res = await fetch(nextUrl);
+          if (!res.ok) throw new Error("API 요청 실패");
+          const data = await res.json();
+
+          allMovies = allMovies.concat(data.results || []);
+
+          if (data.next) {
+            const url = new URL(data.next);
+            nextUrl = url.pathname + url.search; // 도메인 제외하고 경로+쿼리만
+          } else {
+            nextUrl = null;
+          }
+        }
+        setMovies(allMovies);
+      } catch (error) {
+        console.error("영화 데이터를 불러오는 중 오류 발생:", error);
+      } finally {
         setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error("영화 데이터를 가져오는데 실패했습니다:", err);
-        setIsLoading(false);
-      });
+      }
+    };
+
+    fetchAllPages();
   }, []);
 
   const filteredMovies = movies.filter((movie) => {
     const term = searchTerm.toLowerCase();
     return (
-      movie.title_kor.toLowerCase().includes(term) ||
-      movie.title_eng.toLowerCase().includes(term)
+      movie.title_kor?.toLowerCase().includes(term) ||
+      movie.title_eng?.toLowerCase().includes(term)
     );
   });
 
