@@ -40,7 +40,7 @@ export default function DetailList() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(`/movies/${id}/`)
+        fetch(`/movies/list/${id}/`)
             .then((res) => {
                 if (!res.ok) throw new Error("영화 정보를 불러오지 못했습니다.");
                 return res.json();
@@ -126,39 +126,26 @@ export default function DetailList() {
                     </div>
                     <div className="info-section">
                         <span className="info-label">평점</span>
-                        <StarRating rating={movie.rating || 0} />
+                        <StarRating rating={movie.rate || 0} />
                     </div>
                     <div className="info-section plot">
                         <h3>줄거리</h3>
                         <p>{movie.plot || '줄거리 정보 없음'}</p>
                     </div>
 
-                    {movie.director_name && (
-                        <div className="director">
-                            <h3>감독</h3>
-                            <img
-                                src={movie.director_image_url}
-                                alt={movie.director_name}
-                                className="director-image"
-                                onError={(e) => (e.currentTarget.src = '/default-profile.png')}
-                            />
-                            <p>{movie.director_name}</p>
-                        </div>
-                    )}
-
                     <div className="actors">
                         <h3>출연진</h3>
-                        {movie.actors?.length > 0 ? (
+                        {movie.casts?.length > 0 ? (
                             <div className="actor-list">
-                                {movie.actors.map((actor, index) => (
+                                {movie.casts.map((cast, index) => (
                                     <div key={index} className="actor">
                                         <img
-                                            src={actor.photo_url || actor.image_url}
-                                            alt={actor.name}
+                                            src={cast.profile_url}
+                                            alt={cast.name}
                                             className="actor-image"
                                             onError={(e) => (e.currentTarget.src = '/default-profile.png')}
                                         />
-                                        <p>{actor.name}{actor.character ? ` (${actor.character})` : ''}</p>
+                                        <p>{cast.name}{cast.role ? ` (${cast.role})` : ''}</p>
                                     </div>
                                 ))}
                             </div>

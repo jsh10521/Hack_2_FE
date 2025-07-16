@@ -6,10 +6,20 @@ export default defineConfig({
   server: {
     proxy: {
       '/movies': {
-        target: 'https://thehotpotato.store/',
+        target: 'https://kikoky.shop',
         changeOrigin: true,
         secure: false,
-      }
+      },
+      '/dj': {
+        target: 'https://kikoky.shop',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/comment': {
+        target: 'https://kikoky.shop',
+        changeOrigin: true,
+        secure: false,
+      },
     }
   }
 })
